@@ -7,6 +7,8 @@ class Hangman
       @gameboard=GameBoard.new(@guess_left,@wrong_guesses,@progress)
       @player=Player.new
       @win=false
+
+      play_game
    end
    
    def choose_word
@@ -21,13 +23,19 @@ class Hangman
       while @guess_left>0 && @win==false
          @gameboard.show_board
          guess = @player.take_guess
-         guess=='save' ? save_game : analyze_guess(guess)
+         guess=='save' ? save_game(@guess_left,@wrong_guesses,@progress) : analyze_guess(guess)
       end
       @gameboard.show_result(@win,@word)
    end
 
-   def save_game
-      p "saved"
+   def save_game(guess_left,wrong_guesses,progress)
+      #save the parameters into a new file
+      File.open('saved_game.txt','w') do |file|
+         file.puts guess_left.to_s
+         file.puts wrong_guesses.join(" ")
+         file.puts progress.join(" ")
+      end
+      puts "Progress Saved Successfully."
    end
 
    def analyze_guess(guess)
@@ -90,4 +98,4 @@ class Player
    end
 end
 
-Hangman.new.play_game
+Hangman.new
