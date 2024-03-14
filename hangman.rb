@@ -57,6 +57,7 @@ class GameBoard
    def show_board
       puts "\nCurrent Progress: #{@progress.join}\n"
       puts "\nWrong Guesses: #{@wrong_guesses.join(" ")}\n"
+      puts "\nRemaining Letters: [#{(('a'..'z').to_a-@wrong_guesses-@progress).join(" ").upcase}]\n"
       puts "\n#{@guess_left} Trys left\n"
    end
 
@@ -68,9 +69,9 @@ class GameBoard
 
    def show_result(win,secret_word)
       if win==true
-         puts "\nYou got the secret word [#{secret_word}]!\n"
+         puts "\nYou got the secret word [#{secret_word.upcase}]!\n"
       else
-         puts "\nYou Lost. Secret word was #{secret_word}.\n"
+         puts "\nYou Lost. Secret word was [#{secret_word.upcase}].\n"
       end
    end
 end
