@@ -21,7 +21,7 @@ class Hangman
 
    def play_game
       puts "\nPlay Hangman!\n\n"
-      puts "#{@guess_left} #{@wrong_guesses} #{@progress}"
+      @gameboard.update_board(@guess_left,@wrong_guesses,@progress)
       while @guess_left>0 && @win==false
          @gameboard.show_board
          guess = @player.take_guess
@@ -60,6 +60,9 @@ class Hangman
       if File.exist?('saved_game.txt')
          puts "There is a save, would you like to load it?"
          yn= gets.chomp.downcase
+         yn= 'n' if yn.nil? || yn.empty? 
+         yn= 'y' if yn.match?(/yes/)
+         
          if yn=='y'
             load_game
          else
