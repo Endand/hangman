@@ -21,12 +21,13 @@ class Hangman
       while @guess_left>0 && @win==false
          @gameboard.show_board
          guess = @player.take_guess
-         analyze_guess(guess)
+         guess=='save' ? save_game : analyze_guess(guess)
       end
-      
       @gameboard.show_result(@win,@word)
+   end
 
-
+   def save_game
+      p "saved"
    end
 
    def analyze_guess(guess)
@@ -78,11 +79,12 @@ end
 
 class Player
    def take_guess
-      puts "\nTake a guess!\n"
+      puts "\nTake a guess! (Type 'save' if you want to save your progess.)\n"
       alphabet=('a'..'z').to_a
       guess=''
       until alphabet.include?(guess)
          guess=gets.chomp.downcase
+         break if guess=='save'
       end
       guess
    end
