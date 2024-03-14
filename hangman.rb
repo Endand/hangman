@@ -39,6 +39,9 @@ class Hangman
          @guess_left-=1
       end
       @gameboard.update_board(@guess_left,@wrong_guesses,@progress)
+      if @progress.join==@word
+         @win=true
+      end
    end
    
 end
