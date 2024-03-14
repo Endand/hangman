@@ -1,7 +1,7 @@
 class Hangman
    def initialize
       @word=choose_word
-      @guess_left= 6
+      @guess_left= (@word.length > 6) ? 8 : 6
       @wrong_guesses=[]
       @progress=["_"]*@word.length
       @gameboard=GameBoard.new(@guess_left,@wrong_guesses,@progress)
@@ -68,7 +68,7 @@ class GameBoard
 
    def show_result(win,secret_word)
       if win==true
-         puts "\nYou got the secret word (#{secret_word})!\n"
+         puts "\nYou got the secret word [#{secret_word}]!\n"
       else
          puts "\nYou Lost. Secret word was #{secret_word}.\n"
       end
